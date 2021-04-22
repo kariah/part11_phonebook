@@ -112,13 +112,9 @@ app.get('/info', (req, res) => {
                     <p>${currentDateTime}</p>
                 </div>`
     res.send(html) 
-})
+}) 
 
-
-
-const PORT = 3001;
-
-// run the server
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-    console.log(`Puhelinluettelo-server app listening on port ${PORT}!`);
-});
+    console.log(`Server running on port ${PORT}`)
+})
