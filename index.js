@@ -22,13 +22,36 @@ const errorHandler = (error, request, response, next) => {
     console.error(error.message)
 
     if (error.name === 'CastError') {
-        return response.status(400).send({ error: 'malformatted id' })
-    } else if (error.name === 'ValidationError') {
-        return response.status(400).json({ error: error.message })
-    }
+        return response.status(400).send(
+            {
+                error: 'malformatted id'
+            }
+        )
+    } else
+        if (error.name === 'ValidationError') {
+            return response.status(400).json(
+                {
+                    error: error.message
+                }
+            )
+        }
 
     next(error)
-}
+} 
+
+//{
+//    message: 'Validation failed',
+//        name: 'ValidationError',
+//            errors: {
+//        username: {
+//            message: 'Error, expected `username` to be unique. Value: `JohnSmith`',
+//                name: 'ValidatorError',
+//                    kind: 'unique',
+//                        path: 'username',
+//                            value: 'JohnSmith'
+//        }
+//    }
+//}
 
 
 const requestLogger = (request, response, next) => {
@@ -54,15 +77,23 @@ app.post('/api/persons', (request, response, next) => {
 
     let personFound = false
 
+    //Tehtävä 3.20
+    //Näytetään frontissa fronttiin  error.response.data.error
+    //persons.js tiedostossa  .error(error => error.response.data) 
+
     Person
         .findOne({ name: body.name })
         .then(person => {
+
+            //Tested uniqueness
+            //addPerson(request, response, next) 
+           
             if (person != null) {
                 personFound = true
             }
 
             if (!personFound) {
-                addPerson(request, response)
+                addPerson(request, response, next)
             }
             else {
                 updatePerson(request, response, next, person.id)
@@ -78,7 +109,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 })
 
 function updatePerson(request, response, next, id) {
-    console.log("Updte person ", id)
+    console.log("Update person ", id)
     const body = request.body
 
     const person = {
@@ -106,14 +137,14 @@ function addPerson(request, response, next) {
 
     person.save()
 
-    //.then(savedPerson => {
-    //    response.json(savedPerson)
-    //})
+        //.then(savedPerson => {
+        //    response.json(savedPerson)
+        //})
 
         .then(savedPerson => savedPerson.toJSON())
         .then(savedAndFormattedPerson => {
             response.json(savedAndFormattedPerson)
-        }) 
+        })
 
         .catch(error => next(error))
 
