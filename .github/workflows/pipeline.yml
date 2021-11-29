@@ -37,6 +37,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+     #notifications
       - name: Build success/failure notification action 
         uses: 8398a7/action-slack@v3
         with:
