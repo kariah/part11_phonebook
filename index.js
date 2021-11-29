@@ -190,6 +190,16 @@ app.get('/info', (_request, response, next) => {
 })
 
 
+//health test 23.10.2021
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
+
+//version 23.10.2021
+app.get('/version', (req, res) => {
+  res.send('1.1') // change this string to ensure a new version deployed
+})
+
 const unknownEndpoint = (_request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
@@ -205,12 +215,3 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
 
-//health test 23.10.2021
-app.get('/health', (req, res) => {
-  res.send('ok')
-})
-
-//version 23.10.2021
-app.get('/version', (req, res) => {
-  res.send('1.1') // change this string to ensure a new version deployed
-})
