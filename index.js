@@ -204,3 +204,13 @@ const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+//health test 23.10.2021
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
+
+//version 23.10.2021
+app.get('/version', (req, res) => {
+  res.send('1.1') // change this string to ensure a new version deployed
+})
