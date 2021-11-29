@@ -19,3 +19,13 @@ jobs:
         run: npm run eslint
       - name: build
         run: npm run build:ui
+      - name: deploy 
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
+        uses: akhileshns/heroku-deploy@master
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "whispering-crag-50275" 
+          heroku_email: "kari.a.heiskanen@gmail.com" 
+          #healthcheck: "https://whispering-crag-50275.herokuapp.com/health"  
+          #checkstring: "ok"
+          rollbackonhealthcheckfailed: true
