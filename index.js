@@ -178,24 +178,22 @@ app.get('/info', (_request, response, next) => {
   let currentDateTime = new Date()
   Person
     .find({})
-    .then(persons => {
-      //response.json(persons)
+    .then(persons => {  
       let html = `<div>
-                    <p>Phonebook has info for ${persons.length} people </p>
+                    <p>Phonebook has info for ${persons.length} people</p>
                     <p>${currentDateTime}</p>
                 </div>`
       response.send(html)
     })
     .catch(error => next(error))
 })
-
-
-//health test 23.10.2021
+ 
+//health check
 app.get('/health', (req, res) => {
   res.send('ok')
-})
+}) 
 
-//version 23.10.2021
+//version check
 app.get('/version', (req, res) => {
   res.send('1.1') // change this string to ensure a new version deployed
 })
