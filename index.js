@@ -63,11 +63,11 @@ app.post('/api/persons', (request, response, next) => {
     })
   }
 
-  let personFound = false 
+  let personFound = false
 
   Person
     .findOne({ name: body.name })
-    .then(person => { 
+    .then(person => {
 
       if (person !== null) {
         personFound = true
@@ -116,7 +116,7 @@ function addPerson(request, response, next) {
     number: request.body.number
   })
 
-  person.save() 
+  person.save()
     .then(savedPerson => savedPerson.toJSON())
     .then(savedAndFormattedPerson => {
       response.json(savedAndFormattedPerson)
@@ -185,7 +185,7 @@ app.get('/health', (req, res) => {
 app.get('/version', (req, res) => {
   res.send('1.1') // change this string to ensure a new version deployed
 })
- 
+
 
 const unknownEndpoint = (_request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
