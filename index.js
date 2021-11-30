@@ -178,7 +178,7 @@ app.get('/info', (_request, response, next) => {
   let currentDateTime = new Date()
   Person
     .find({})
-    .then(persons => {  
+    .then(persons => {
       let html = `<div>
                     <p>Phonebook has info for ${persons.length} people</p>
                     <p>${currentDateTime}</p>
@@ -187,11 +187,11 @@ app.get('/info', (_request, response, next) => {
     })
     .catch(error => next(error))
 })
- 
+
 //health check
 app.get('/health', (req, res) => {
   res.send('ok')
-}) 
+})
 
 //version check
 app.get('/version', (req, res) => {
