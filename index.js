@@ -63,18 +63,11 @@ app.post('/api/persons', (request, response, next) => {
     })
   }
 
-  let personFound = false
-
-  //Teht�v� 3.20
-  //N�ytet��n frontissa fronttiin  error.response.data.error
-  //persons.js tiedostossa  .error(error => error.response.data)
+  let personFound = false 
 
   Person
     .findOne({ name: body.name })
-    .then(person => {
-
-      //Tested uniqueness
-      //addPerson(request, response, next)
+    .then(person => { 
 
       if (person !== null) {
         personFound = true
@@ -123,12 +116,7 @@ function addPerson(request, response, next) {
     number: request.body.number
   })
 
-  person.save()
-
-  //.then(savedPerson => {
-  //    response.json(savedPerson)
-  //})
-
+  person.save() 
     .then(savedPerson => savedPerson.toJSON())
     .then(savedAndFormattedPerson => {
       response.json(savedAndFormattedPerson)
@@ -197,8 +185,7 @@ app.get('/health', (req, res) => {
 app.get('/version', (req, res) => {
   res.send('1.1') // change this string to ensure a new version deployed
 })
-
-//test
+ 
 
 const unknownEndpoint = (_request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
@@ -207,7 +194,7 @@ const unknownEndpoint = (_request, response) => {
 // olemattomien osoitteiden k�sittely
 app.use(unknownEndpoint)
 
-// t�m� tulee kaikkien muiden middlewarejen rekister�innin j�lkeen!
+// tämä tulee kaikkien muiden middlewarejen rekistereinnin jälkeen!
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
